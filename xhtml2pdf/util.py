@@ -575,7 +575,8 @@ class pisaFileObject:
                 # Using HTTPLIB
                 server, path = urllib2.splithost(uri[uri.find("//"):])
                 if uri.startswith("https://"):
-                    conn = httplib.HTTPSConnection(server)
+                    from httplib import ssl                   
+                    conn = httplib.HTTPSConnection(server, context=ssl._create_unverified_context())
                 else:
                     conn = httplib.HTTPConnection(server)
                 conn.request("GET", path)
